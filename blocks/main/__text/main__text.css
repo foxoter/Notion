@@ -1,0 +1,9 @@
+.main__text {
+    margin-bottom: 24px;
+    height: auto;
+    font-size: 14px;
+    line-height: 24px;
+    outline: none;
+    border: 0;
+    resize: none;
+}

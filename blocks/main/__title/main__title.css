@@ -1,0 +1,11 @@
+.main__title {
+    height: auto;
+    margin-top: 12px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 36px;
+    outline: none;
+    border: 0;
+    resize: none;
+}
