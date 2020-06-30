@@ -1,0 +1,9 @@
+@import url(./__text/main__text.css);
+@import url(./__title/main__title.css);
+
+.main {
+    margin-top: 40px;
+    width: 684px;
+    display: flex;
+    flex-direction: column;
+}

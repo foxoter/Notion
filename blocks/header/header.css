@@ -1,0 +1,7 @@
+@import url(./__emoji/header__emoji.css);
+@import url(./__title/header__title.css);
+
+.header {
+    width: 684px;
+    border-bottom: 1px solid #E5E5E5;
+}
