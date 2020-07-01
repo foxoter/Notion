@@ -1,8 +1,8 @@
 class Block {
-    constructor(type, content) {
+    constructor(id, type, content) {
+        this.id = id;
         this.type = type;
         this.content = content;
-        this.changeHeigth = this.changeHeight.bind(this);
     }
 
     createBlock() {
@@ -16,26 +16,46 @@ class Block {
             newBlock.style.height = '35px';
         } else if (this.type === 'paragraph') {
             newBlock.classList.add('main__text');
-            newBlock.style.height = `${this.setHeight(this.content)}px`;
-            this.setEventListeners(newBlock);
+            newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
         }
+        this.setEventListeners(newBlock);
+
         return newBlock;
     }
 
+    renderBorder(evt) {
+        if (this.contentLength === 0) {
+            evt.target.style.border = '1px solid salmon';
+        } else {
+            evt.target.style.border = '0';
+        }
+    }
+
+    calcHeight(symbols) {
+        return Math.ceil(symbols / 75) * 24;
+    }
+
     changeHeight(evt) {
-        const symbols = evt.target.value.length;
+        this.contentLength = evt.target.value.length;
+        this.content = evt.target.value;
 
-        evt.target.style.height = `${Math.ceil(symbols / 75) * 24}px`;
+        evt.target.style.height = `${this.calcHeight(this.contentLength)}px`;
     }
 
-    setHeight(str) {
-        return Math.ceil(str.length / 75) * 24;
+    saveData() {
+        articles.forEach((element) => {
+            if (element.id === this.id) {
+                window.localStorage.setItem(`${element.id}`, `${this.content}`);
+            }
+        });
     }
-    
+
     deleteBlock() {
     }
-    
+
     setEventListeners(block) {
-      block.addEventListener('input', this.changeHeight);
+        block.addEventListener('input', this.changeHeight.bind(this));
+        block.addEventListener('input', this.renderBorder.bind(this));
+        block.addEventListener('input', this.saveData.bind(this));
     }
 }
