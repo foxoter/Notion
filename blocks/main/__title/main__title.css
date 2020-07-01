@@ -1,3 +1,5 @@
+@import url(_tips/main__title_tips_on.css);
+
 .main__title {
     height: auto;
     min-height: 36px;
@@ -9,4 +11,10 @@
     outline: none;
     border: 0;
     resize: none;
+}
+
+.main__title::placeholder {
+    font-family: 'Lobster', cursive;
+    font-size: 14px;
+    opacity: 0.5;
 }
