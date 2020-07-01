@@ -48,7 +48,7 @@
 
     function add(type) {
         const newBlock = createElement(generateId(), type, '', renderPanel, this.currentBlock);
-        newBlock.style.border = '1px solid black';
+        newBlock.focus();
     }
 
     function remove() {
