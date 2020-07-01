@@ -1,8 +1,9 @@
 class Block {
-    constructor(id, type, content) {
+    constructor(id, type, content, renderPanel) {
         this.id = id;
         this.type = type;
         this.content = content;
+        this.renderPanel = renderPanel;
     }
 
     createBlock() {
@@ -57,5 +58,6 @@ class Block {
         block.addEventListener('input', this.changeHeight.bind(this));
         block.addEventListener('input', this.renderBorder.bind(this));
         block.addEventListener('input', this.saveData.bind(this));
+        block.addEventListener('mouseover', this.renderPanel);
     }
 }
