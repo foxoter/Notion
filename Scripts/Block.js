@@ -22,10 +22,18 @@ class Block {
         return newBlock;
     }
 
-    changeHeight(evt) {
-        const symbols = evt.target.value.length;
+    renderBorder(evt) {
+        if (this.contentLength === 0) {
+            evt.target.style.border = '1px solid salmon';
+        } else {
+            evt.target.style.border = '0';
+        }
+    }
 
-        evt.target.style.height = `${Math.ceil(symbols / 75) * 24}px`;
+    changeHeight(evt) {
+        this.contentLength = evt.target.value.length;
+
+        evt.target.style.height = `${Math.ceil(this.contentLength / 75) * 24}px`;
     }
 
     setHeight(str) {
@@ -37,5 +45,6 @@ class Block {
     
     setEventListeners(block) {
       block.addEventListener('input', this.changeHeight);
+      block.addEventListener('input', this.renderBorder);
     }
 }
