@@ -19,14 +19,14 @@
         }
     });
 
-    function createElement(id, type, content, renderPanel) {
-        const element = new Block(id, type, content, renderPanel);
+    function createElement(id, type, content, renderPanel, currentBlock) {
+        const element = new Block(id, type, content, renderPanel, removeBlockFromBrowser);
 
-        return element.createBlock();
+        return element.createBlock(currentBlock);
     }
 
     function renderPanel(evt) {
-        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, this.currentBlock);
+        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, this);
     }
 
     const blockList = new BlockList(container, articles, createElement, renderPanel);
@@ -36,11 +36,31 @@
         window.localStorage.setItem('title', `${this.value}`);
     }
 
-    function remove() {
-        this.currentBlock.deleteBlock();
+    function generateId() {
+        let id = Math.floor(Math.random() * (2 ** 12));
+
+        while (articles.find((element) => element.id === id)) {
+            id = Math.floor(Math.random() * (2 ** 12));
+        }
+
+        return id;
     }
 
-    const panelItem = new Panel(panel, remove);
+    function add(type) {
+        const newBlock = createElement(generateId(), type, '', renderPanel, this.currentBlock);
+        newBlock.style.border = '1px solid black';
+    }
+
+    function remove() {
+        this.currentBlock.deleteBlock();
+        panelItem.hidePanel();
+    }
+
+    function removeBlockFromBrowser() {
+        console.log(this);
+    }
+
+    const panelItem = new Panel(panel, remove, add);
     panelItem.setEventListeners();
 
     mainTitle.addEventListener('input', saveMainTitle);

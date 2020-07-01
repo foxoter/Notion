@@ -1,26 +1,39 @@
 class Block {
-    constructor(id, type, content, renderPanel) {
+    constructor(id, type, content, renderPanel, removeBlockFormBrowser) {
         this.id = id;
         this.type = type;
         this.content = content;
         this.renderPanel = renderPanel;
+        this.removeBlockFormBrowser = removeBlockFormBrowser;
     }
 
-    createBlock() {
+    createBlock(currentBlock) {
         const markup = `<textarea></textarea>`;
-        const shell = document.createElement('div');
-        shell.insertAdjacentHTML('afterbegin', markup);
-        const newBlock = shell.firstElementChild;
-        newBlock.textContent = this.content;
-        if (this.type === 'heading') {
-            newBlock.classList.add('main__title');
-            newBlock.style.height = '35px';
-        } else if (this.type === 'paragraph') {
-            newBlock.classList.add('main__text');
-            newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
+
+        if (currentBlock === null) {
+            const shell = document.createElement('div');
+            shell.insertAdjacentHTML('afterbegin', markup);
+            this.newBlock = shell.firstElementChild;
+            this.newBlock.textContent = this.content;
+        } else {
+            const shell = currentBlock.block;
+            shell.insertAdjacentHTML('afterend', markup);
+            console.log(shell);
+            this.newBlock = shell.nextSibling;
+            console.log(this.newBlock);
         }
-        this.setEventListeners(newBlock);
-        return newBlock;
+        
+
+        if (this.type === 'heading') {
+            this.newBlock.classList.add('main__title');
+            this.newBlock.style.height = '35px';
+        } else if (this.type === 'paragraph') {
+            this.newBlock.classList.add('main__text');
+            this.newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
+        }
+        this.setEventListeners(this.newBlock);
+        this.block = this.newBlock;
+        return this.newBlock;
     }
 
     renderBorder(evt) {
@@ -51,11 +64,12 @@ class Block {
     }
 
     deleteBlock() {
-        this.remove();
-        this.removeEventListener('input', this.changeHeight);
-        this.removeEventListener('input', this.renderBorder);
-        this.removeEventListener('input', this.saveData);
-        this.removeEventListener('mouseover', this.renderPanel);
+        this.block.removeEventListener('input', this.changeHeight);
+        this.block.removeEventListener('input', this.renderBorder);
+        this.block.removeEventListener('input', this.saveData);
+        this.block.removeEventListener('mouseover', this.renderPanel);
+        this.removeBlockFormBrowser();
+        this.block.remove();
     }
 
     setEventListeners(block) {
