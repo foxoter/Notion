@@ -20,7 +20,6 @@ class Block {
             newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
         }
         this.setEventListeners(newBlock);
-
         return newBlock;
     }
 
@@ -52,12 +51,17 @@ class Block {
     }
 
     deleteBlock() {
+        this.remove();
+        this.removeEventListener('input', this.changeHeight);
+        this.removeEventListener('input', this.renderBorder);
+        this.removeEventListener('input', this.saveData);
+        this.removeEventListener('mouseover', this.renderPanel);
     }
 
     setEventListeners(block) {
         block.addEventListener('input', this.changeHeight.bind(this));
         block.addEventListener('input', this.renderBorder.bind(this));
         block.addEventListener('input', this.saveData.bind(this));
-        block.addEventListener('mouseover', this.renderPanel);
+        block.addEventListener('mouseover', this.renderPanel.bind(this));
     }
 }
