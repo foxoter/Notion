@@ -49,6 +49,11 @@
     function add(type) {
         const newBlock = createElement(generateId(), type, '', renderPanel, this.currentBlock);
         newBlock.focus();
+        if (newBlock.classList.contains('main__title')) {
+          newBlock.classList.add('main__title_tips_on');
+        } else {
+          newBlock.classList.add('main__text_tips_on');
+        }
     }
 
     function remove() {
