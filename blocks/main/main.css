@@ -1,5 +1,6 @@
 @import url(./__text/main__text.css);
 @import url(./__title/main__title.css);
+@import url(../panel/panel.css);
 
 .main {
     margin-top: 40px;

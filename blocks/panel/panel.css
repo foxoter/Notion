@@ -1,0 +1,13 @@
+@import url(__button.css/panel__button.css);
+@import url(_function/panel__button_function_h1.css);
+@import url(_function/panel__button_function_text.css);
+@import url(_function/panel__button_function_delete.css);
+@import url(_function/panel__button_function_move.css);
+
+.panel {
+    width: 95px;
+    height: 20px;
+    justify-content: space-between;
+    position: absolute;
+    display: none;
+}

@@ -1,5 +1,6 @@
 .main__title {
     height: auto;
+    min-height: 36px;
     margin-top: 12px;
     margin-bottom: 30px;
     font-weight: bold;

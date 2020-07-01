@@ -2,25 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="vendor/normalize.css">
-    <link rel="stylesheet" href="pages/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <title>Notion</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="vendor/normalize.css">
+  <link rel="stylesheet" href="pages/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <title>Notion</title>
 </head>
 
 <body>
-    <div class="page">
-        <section class="header">
-            <div class="header__emoji"></div>
-            <input type="text" class="header__title">
-        </section>
-        <section class="main"></section>
-    </div>
-    <script src="Scripts/Block.js"></script>
-    <script src="Scripts/BlockList.js"></script>
-    <script src="Scripts/data.js"></script>
-    <script src="Scripts/main.js"></script>
+  <div class="page">
+      <section class="header">
+          <div class="header__emoji"></div>
+          <input type="text" class="header__title">
+      </section>
+      <div class="panel">
+        <div class="panel__button panel__button_function_h1"></div>
+        <div class="panel__button panel__button_function_text"></div>
+        <div class="panel__button panel__button_function_delete"></div>
+        <div class="panel__button panel__button_function_move"></div>
+      </div>
+      <section class="main"></section>
+  </div>
+  <script src="Scripts/Block.js"></script>
+  <script src="Scripts/BlockList.js"></script>
+  <script src="Scripts/Panel.js"></script>
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/main.js"></script>
 </body>
 </html>
