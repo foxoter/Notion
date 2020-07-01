@@ -3,7 +3,7 @@ class Panel {
         this.panel = panel;
         this.removeCurrentBLock = removeCurrentBLock;
     }
-
+    
     render(horizont, vertical, block) {
         this.currentBlock = block;
         this.panel.style.left = `${horizont - 95 - 15}px`;
@@ -12,7 +12,11 @@ class Panel {
         this.panel.style.display = 'flex';
     }
 
+    hidePanel() {
+        this.panel.style.display = 'none';
+    }
+
     setEventListeners() {
-        document.querySelector('.panel__button_function_delete').addEventListener('click', this.removeCurrentBLock.bind(this));
+        document.querySelector('.panel__button_function_delete').addEventListener('click', this.removeCurrentBLock.bind(this, this.currentBlock));
     }
 }
