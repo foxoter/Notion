@@ -7,7 +7,7 @@
 .panel {
     width: 95px;
     height: 20px;
-    display: flex;
     justify-content: space-between;
     position: absolute;
+    display: none;
 }
