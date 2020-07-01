@@ -2,7 +2,6 @@ class Block {
     constructor(type, content) {
         this.type = type;
         this.content = content;
-        this.changeHeigth = this.changeHeight.bind(this);
     }
 
     createBlock() {
@@ -16,7 +15,7 @@ class Block {
             newBlock.style.height = '35px';
         } else if (this.type === 'paragraph') {
             newBlock.classList.add('main__text');
-            newBlock.style.height = `${this.setHeight(this.content)}px`;
+            newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
             this.setEventListeners(newBlock);
         }
         return newBlock;
@@ -30,21 +29,26 @@ class Block {
         }
     }
 
+    calcHeight(symbols) {
+        return Math.ceil(symbols / 75) * 24;
+    }
+
     changeHeight(evt) {
         this.contentLength = evt.target.value.length;
 
-        evt.target.style.height = `${Math.ceil(this.contentLength / 75) * 24}px`;
+        evt.target.style.height = `${this.calcHeight(this.contentLength)}px`;
     }
 
-    setHeight(str) {
-        return Math.ceil(str.length / 75) * 24;
+    saveData(evt) {
+
     }
-    
+
     deleteBlock() {
     }
-    
+
     setEventListeners(block) {
-      block.addEventListener('input', this.changeHeight);
-      block.addEventListener('input', this.renderBorder);
+        block.addEventListener('input', this.changeHeight.bind(this));
+        block.addEventListener('input', this.renderBorder.bind(this));
+        block.addEventListener('input', this.saveData);
     }
 }
