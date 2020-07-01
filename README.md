@@ -6,6 +6,7 @@ Functionality:
 * Edit main title
 * Edit subtitles
 * Edit text blocks
+* Add and delete new subtitles and text blocks
 
 Text blocks' height adjusts to the content.
 
