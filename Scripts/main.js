@@ -19,10 +19,10 @@
         }
     });
 
-    function createElement(id, type, content, renderPanel) {
+    function createElement(id, type, content, renderPanel, currentBlock) {
         const element = new Block(id, type, content, renderPanel, removeBlockFromBrowser);
 
-        return element.createBlock();
+        return element.createBlock(currentBlock);
     }
 
     function renderPanel(evt) {
@@ -47,9 +47,8 @@
     }
 
     function add(type) {
-        const newBlock = createElement(generateId(), type, '', renderPanel);
+        const newBlock = createElement(generateId(), type, '', renderPanel, this.currentBlock);
         newBlock.style.border = '1px solid black';
-        blockList.container.appendChild(newBlock);
     }
 
     function remove() {
