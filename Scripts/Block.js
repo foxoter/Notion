@@ -1,9 +1,10 @@
 class Block {
-    constructor(id, type, content, renderPanel) {
+    constructor(id, type, content, renderPanel, removeBlockFormBrowser) {
         this.id = id;
         this.type = type;
         this.content = content;
         this.renderPanel = renderPanel;
+        this.removeBlockFormBrowser = removeBlockFormBrowser;
     }
 
     createBlock() {
@@ -20,6 +21,7 @@ class Block {
             newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
         }
         this.setEventListeners(newBlock);
+        this.block = newBlock;
         return newBlock;
     }
 
@@ -51,11 +53,12 @@ class Block {
     }
 
     deleteBlock() {
-        this.remove();
-        this.removeEventListener('input', this.changeHeight);
-        this.removeEventListener('input', this.renderBorder);
-        this.removeEventListener('input', this.saveData);
-        this.removeEventListener('mouseover', this.renderPanel);
+        this.block.removeEventListener('input', this.changeHeight);
+        this.block.removeEventListener('input', this.renderBorder);
+        this.block.removeEventListener('input', this.saveData);
+        this.block.removeEventListener('mouseover', this.renderPanel);
+        this.removeBlockFormBrowser();
+        this.block.remove();
     }
 
     setEventListeners(block) {

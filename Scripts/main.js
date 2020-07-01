@@ -20,13 +20,13 @@
     });
 
     function createElement(id, type, content, renderPanel) {
-        const element = new Block(id, type, content, renderPanel);
+        const element = new Block(id, type, content, renderPanel, removeBlockFromBrowser);
 
         return element.createBlock();
     }
 
     function renderPanel(evt) {
-        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, this.currentBlock);
+        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, this);
     }
 
     const blockList = new BlockList(container, articles, createElement, renderPanel);
@@ -38,6 +38,11 @@
 
     function remove() {
         this.currentBlock.deleteBlock();
+        panelItem.hidePanel();
+    }
+
+    function removeBlockFromBrowser() {
+        console.log(this);
     }
 
     const panelItem = new Panel(panel, remove);
