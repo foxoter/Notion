@@ -26,7 +26,7 @@
     }
 
     function renderPanel(evt) {
-        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, evt.target);
+        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, this.currentBlock);
     }
 
     const blockList = new BlockList(container, articles, createElement, renderPanel);
