@@ -25,8 +25,8 @@
         return element.createBlock();
     }
 
-    function renderPanel() {        
-    panelItem.render(this.offsetLeft, this.offsetTop);
+    function renderPanel(evt) {
+        panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, evt.target);
     }
 
     const blockList = new BlockList(container, articles, createElement, renderPanel);
@@ -36,7 +36,12 @@
         window.localStorage.setItem('title', `${this.value}`);
     }
 
-    const panelItem = new Panel(panel);
+    function remove() {
+        this.currentBlock.deleteBlock();
+    }
+
+    const panelItem = new Panel(panel, remove);
+    panelItem.setEventListeners();
 
     mainTitle.addEventListener('input', saveMainTitle);
 })();
