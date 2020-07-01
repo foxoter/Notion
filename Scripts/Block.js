@@ -45,7 +45,7 @@ class Block {
     }
 
     calcHeight(symbols) {
-        return Math.ceil(symbols / 75) * 24;
+        return Math.ceil(symbols / 75) * 23;
     }
 
     changeHeight(evt) {
