@@ -36,6 +36,22 @@
         window.localStorage.setItem('title', `${this.value}`);
     }
 
+    function generateId() {
+        let id = Math.floor(Math.random() * (2 ** 12));
+
+        while (articles.find((element) => element.id === id)) {
+            id = Math.floor(Math.random() * (2 ** 12));
+        }
+
+        return id;
+    }
+
+    function add(type) {
+        const newBlock = createElement(generateId(), type, '', renderPanel);
+        newBlock.style.border = '1px solid black';
+        blockList.container.appendChild(newBlock);
+    }
+
     function remove() {
         this.currentBlock.deleteBlock();
         panelItem.hidePanel();
@@ -45,7 +61,7 @@
         console.log(this);
     }
 
-    const panelItem = new Panel(panel, remove);
+    const panelItem = new Panel(panel, remove, add);
     panelItem.setEventListeners();
 
     mainTitle.addEventListener('input', saveMainTitle);
