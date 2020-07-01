@@ -8,6 +8,10 @@
     mainIcon.textContent = headerData.icon;
     mainTitle.value = headerData.title;
 
+    if (window.localStorage.title) {
+        mainTitle.value = window.localStorage.title;
+    }
+
     articles.forEach((element) => {
         if (window.localStorage[element.id]) {
             element.content = window.localStorage[element.id];
@@ -22,4 +26,10 @@
 
     const blockList = new BlockList(container, articles, createElement);
     blockList.render();
+
+    function saveMainTitle() {
+        window.localStorage.setItem('title', `${this.value}`);
+    }
+    
+    mainTitle.addEventListener('input', saveMainTitle);
 })();
