@@ -8,12 +8,28 @@
     mainIcon.textContent = headerData.icon;
     mainTitle.value = headerData.title;
 
+    if (window.localStorage.title) {
+        mainTitle.value = window.localStorage.title;
+    }
 
-    function createElement(type, content) {
-        const element = new Block(type, content);
+    articles.forEach((element) => {
+        if (window.localStorage[element.id]) {
+            element.content = window.localStorage[element.id];
+        }
+    });
+
+    function createElement(id, type, content) {
+        const element = new Block(id, type, content);
+
         return element.createBlock();
     }
 
     const blockList = new BlockList(container, articles, createElement);
     blockList.render();
+
+    function saveMainTitle() {
+        window.localStorage.setItem('title', `${this.value}`);
+    }
+    
+    mainTitle.addEventListener('input', saveMainTitle);
 })();

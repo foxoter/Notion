@@ -1,5 +1,6 @@
 class Block {
-    constructor(type, content) {
+    constructor(id, type, content) {
+        this.id = id;
         this.type = type;
         this.content = content;
     }
@@ -16,8 +17,9 @@ class Block {
         } else if (this.type === 'paragraph') {
             newBlock.classList.add('main__text');
             newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
-            this.setEventListeners(newBlock);
         }
+        this.setEventListeners(newBlock);
+
         return newBlock;
     }
 
@@ -35,11 +37,17 @@ class Block {
 
     changeHeight(evt) {
         this.contentLength = evt.target.value.length;
+        this.content = evt.target.value;
+
         evt.target.style.height = `${this.calcHeight(this.contentLength)}px`;
     }
 
-    saveData(evt) {
-
+    saveData() {
+        articles.forEach((element) => {
+            if (element.id === this.id) {
+                window.localStorage.setItem(`${element.id}`, `${this.content}`);
+            }
+        });
     }
 
     deleteBlock() {
@@ -48,6 +56,6 @@ class Block {
     setEventListeners(block) {
         block.addEventListener('input', this.changeHeight.bind(this));
         block.addEventListener('input', this.renderBorder.bind(this));
-        block.addEventListener('input', this.saveData);
+        block.addEventListener('input', this.saveData.bind(this));
     }
 }
