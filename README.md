@@ -1,6 +1,5 @@
 # Notion
 ###### v 1.0.0
-
 ## About
 Building a Notes taking service prototype. Inspired by Notion app. 
 Functionality:
