@@ -18,9 +18,7 @@ class Block {
         } else {
             const shell = currentBlock.block;
             shell.insertAdjacentHTML('afterend', markup);
-            console.log(shell);
             this.newBlock = shell.nextSibling;
-            console.log(this.newBlock);
         }
         
 
@@ -36,16 +34,26 @@ class Block {
         return this.newBlock;
     }
 
-    renderBorder(evt) {
-        if (this.contentLength === 0) {
-            evt.target.style.border = '1px solid salmon';
+    renderTip(evt) {
+        if (this.type === 'heading') {
+            if (this.contentLength === 0) {
+                evt.target.classList.add('main__title_tips_on');
+            } else {
+                evt.target.style.border = '0';
+                evt.target.classList.remove('main__title_tips_on');
+            }
         } else {
-            evt.target.style.border = '0';
+            if (this.contentLength === 0) {
+                evt.target.classList.add('main__text_tips_on');
+            } else {
+                evt.target.style.border = '0';
+                evt.target.classList.remove('main__text_tips_on');
+            }
         }
     }
 
     calcHeight(symbols) {
-        return Math.ceil(symbols / 75) * 23;
+        return Math.ceil(symbols / 75) * 24;
     }
 
     changeHeight(evt) {
@@ -65,7 +73,7 @@ class Block {
 
     deleteBlock() {
         this.block.removeEventListener('input', this.changeHeight);
-        this.block.removeEventListener('input', this.renderBorder);
+        this.block.removeEventListener('input', this.renderTip);
         this.block.removeEventListener('input', this.saveData);
         this.block.removeEventListener('mouseover', this.renderPanel);
         this.removeBlockFormBrowser();
@@ -74,7 +82,7 @@ class Block {
 
     setEventListeners(block) {
         block.addEventListener('input', this.changeHeight.bind(this));
-        block.addEventListener('input', this.renderBorder.bind(this));
+        block.addEventListener('input', this.renderTip.bind(this));
         block.addEventListener('input', this.saveData.bind(this));
         block.addEventListener('mouseover', this.renderPanel.bind(this));
     }
