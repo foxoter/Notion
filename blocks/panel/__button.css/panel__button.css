@@ -1,0 +1,9 @@
+.panel__button {
+    background-color: #ECECEC;
+    height: 20px;
+    width: 20px;
+    border-radius: 15%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+

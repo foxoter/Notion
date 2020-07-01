@@ -35,7 +35,6 @@ class Block {
 
     changeHeight(evt) {
         this.contentLength = evt.target.value.length;
-
         evt.target.style.height = `${this.calcHeight(this.contentLength)}px`;
     }
 
