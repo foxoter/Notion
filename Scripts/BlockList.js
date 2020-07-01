@@ -7,7 +7,7 @@ class BlockList {
 
     render() {
         this.initialData.forEach((element) => {
-            const newBlock = this.createElement(element.type, element.content);
+            const newBlock = this.createElement(element.id, element.type, element.content);
             this.container.appendChild(newBlock);
         });
 

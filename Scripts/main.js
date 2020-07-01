@@ -8,9 +8,15 @@
     mainIcon.textContent = headerData.icon;
     mainTitle.value = headerData.title;
 
+    articles.forEach((element) => {
+        if (window.localStorage[element.id]) {
+            element.content = window.localStorage[element.id];
+        }
+    });
 
-    function createElement(type, content) {
-        const element = new Block(type, content);
+    function createElement(id, type, content) {
+        const element = new Block(id, type, content);
+
         return element.createBlock();
     }
 
