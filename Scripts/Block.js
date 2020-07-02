@@ -8,7 +8,13 @@ class Block {
     }
 
     createBlock(currentBlock) {
-        const markup = `<textarea></textarea>`;
+        let markup;
+
+        if (this.type === 'heading') {
+            markup = `<h2 contenteditable="true"></h2>`;
+        } else {
+            markup = `<p contenteditable="true"></p>`;
+        }
 
         if (currentBlock === null) {
             const shell = document.createElement('div');
@@ -21,14 +27,12 @@ class Block {
             this.newBlock = shell.nextSibling;
         }
         
-
         if (this.type === 'heading') {
             this.newBlock.classList.add('main__title');
-            this.newBlock.style.height = '35px';
         } else if (this.type === 'paragraph') {
             this.newBlock.classList.add('main__text');
-            this.newBlock.style.height = `${this.calcHeight(this.content.length)}px`;
         }
+
         this.setEventListeners(this.newBlock);
         this.block = this.newBlock;
         return this.newBlock;
@@ -52,18 +56,8 @@ class Block {
         }
     }
 
-    calcHeight(symbols) {
-        return Math.ceil(symbols / 75) * 24;
-    }
-
-    changeHeight(evt) {
-        this.contentLength = evt.target.value.length;
-        this.content = evt.target.value;
-
-        evt.target.style.height = `${this.calcHeight(this.contentLength)}px`;
-    }
-
-    saveData() {
+    saveData(evt) {
+        this.content = evt.target.textContent;
         const localSt = JSON.parse(localStorage.getItem('blocks'));
 
         localSt.forEach((element) => {
@@ -76,7 +70,6 @@ class Block {
     }
 
     deleteBlock() {
-        this.block.removeEventListener('input', this.changeHeight);
         this.block.removeEventListener('input', this.renderTip);
         this.block.removeEventListener('input', this.saveData);
         this.block.removeEventListener('mouseover', this.renderPanel);
@@ -85,7 +78,6 @@ class Block {
     }
 
     setEventListeners(block) {
-        block.addEventListener('input', this.changeHeight.bind(this));
         block.addEventListener('input', this.renderTip.bind(this));
         block.addEventListener('input', this.saveData.bind(this));
         block.addEventListener('mouseover', this.renderPanel.bind(this));
