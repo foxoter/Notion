@@ -1,14 +1,19 @@
 class BlockList {
-    constructor(container, initialData, createElement, renderPanel) {
+    constructor(container, blocks, createElement, renderPanel) {
         this.container = container;
-        this.initialData = initialData;
+        this.blocks = blocks;
         this.createElement = createElement;
         this.renderPanel = renderPanel;
     }
 
     render() {
-        this.initialData.forEach((element) => {
+        if (!localStorage.getItem('blocks')) {
+            localStorage.setItem('blocks', JSON.stringify(this.blocks));
+        }
+        this.blocks = JSON.parse(localStorage.getItem('blocks'));
+        this.blocks.forEach((element) => {
             const newBlock = this.createElement(element.id, element.type, element.content, this.renderPanel, null);
+
             this.container.appendChild(newBlock);
         });
     }
