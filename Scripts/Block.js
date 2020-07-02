@@ -20,6 +20,14 @@ class Block {
             shell.insertAdjacentHTML('afterbegin', markup);
             this.newBlock = shell.firstElementChild;
             this.newBlock.textContent = this.content;
+
+            if (this.newBlock.textContent.length === 0) {
+                if (this.type === 'heading') {
+                    this.newBlock.classList.add('main__title_tips_on');
+                } else {
+                    this.newBlock.classList.add('main__text_tips_on');
+                }
+            }
         } else {
             const shell = currentBlock.block;
             const local = JSON.parse(localStorage.getItem('blocks'));
