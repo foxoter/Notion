@@ -8,7 +8,7 @@ class Panel {
     render(horizont, vertical, block) {
         this.currentBlock = block;
         this.panel.style.left = `${horizont - 95 - 15}px`;
-        this.panel.style.top = `${vertical + 10}px`;
+        this.panel.style.top = `${vertical + 5}px`;
         this.panel.classList.add('panel_display_show');
         this.panel.style.display = 'flex';
     }
