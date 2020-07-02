@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+    // localStorage.clear();
     const container = document.querySelector('.main');
     const mainIcon = document.querySelector('.header__emoji');
     const mainTitle = document.querySelector('.header__title');
@@ -13,12 +14,6 @@
         mainTitle.value = window.localStorage.title;
     }
 
-    articles.forEach((element) => {
-        if (window.localStorage[element.id]) {
-            element.content = window.localStorage[element.id];
-        }
-    });
-
     function createElement(id, type, content, renderPanel, currentBlock) {
         const element = new Block(id, type, content, renderPanel, removeBlockFromBrowser);
 
@@ -29,7 +24,13 @@
         panelItem.render(evt.target.offsetLeft, evt.target.offsetTop, this);
     }
 
-    const blockList = new BlockList(container, articles, createElement, renderPanel);
+    let blocks = articles;
+
+    if (localStorage.getItem('blocks')) {
+        blocks = JSON.parse(localStorage.getItem('blocks'));
+    }
+
+    const blockList = new BlockList(container, blocks, createElement, renderPanel);
     blockList.render();
 
     function saveMainTitle() {
@@ -50,9 +51,9 @@
         const newBlock = createElement(generateId(), type, '', renderPanel, this.currentBlock);
         newBlock.focus();
         if (newBlock.classList.contains('main__title')) {
-          newBlock.classList.add('main__title_tips_on');
+            newBlock.classList.add('main__title_tips_on');
         } else {
-          newBlock.classList.add('main__text_tips_on');
+            newBlock.classList.add('main__text_tips_on');
         }
     }
 

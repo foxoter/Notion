@@ -64,11 +64,15 @@ class Block {
     }
 
     saveData() {
-        articles.forEach((element) => {
+        const localSt = JSON.parse(localStorage.getItem('blocks'));
+
+        localSt.forEach((element) => {
             if (element.id === this.id) {
-                window.localStorage.setItem(`${element.id}`, `${this.content}`);
+                element.content = this.content;
             }
         });
+
+        localStorage.setItem('blocks', JSON.stringify(localSt));
     }
 
     deleteBlock() {
