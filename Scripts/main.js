@@ -15,7 +15,7 @@
     }
 
     function createElement(id, type, content, renderPanel, currentBlock) {
-        const element = new Block(id, type, content, renderPanel, removeBlockFromBrowser);
+        const element = new Block(id, type, content, renderPanel);
 
         return element.createBlock(currentBlock);
     }
@@ -60,10 +60,6 @@
     function remove() {
         this.currentBlock.deleteBlock();
         panelItem.hidePanel();
-    }
-
-    function removeBlockFromBrowser() {
-        console.log(this);
     }
 
     const panelItem = new Panel(panel, remove, add);

@@ -1,10 +1,9 @@
 class Block {
-    constructor(id, type, content, renderPanel, removeBlockFormBrowser) {
+    constructor(id, type, content, renderPanel) {
         this.id = id;
         this.type = type;
         this.content = content;
         this.renderPanel = renderPanel;
-        this.removeBlockFormBrowser = removeBlockFormBrowser;
     }
 
     createBlock(currentBlock) {
@@ -23,10 +22,22 @@ class Block {
             this.newBlock.textContent = this.content;
         } else {
             const shell = currentBlock.block;
+            const local = JSON.parse(localStorage.getItem('blocks'));
+            const index = local.findIndex((element) => element.id === currentBlock.id);
+
             shell.insertAdjacentHTML('afterend', markup);
             this.newBlock = shell.nextSibling;
+
+            const newObj = {
+                id: this.id,
+                type: this.type,
+                content: this.content
+            }
+
+            local.splice(index + 1, 0, newObj);
+            localStorage.setItem('blocks', JSON.stringify(local));
         }
-        
+
         if (this.type === 'heading') {
             this.newBlock.classList.add('main__title');
         } else if (this.type === 'paragraph') {
@@ -70,10 +81,15 @@ class Block {
     }
 
     deleteBlock() {
+        const local = JSON.parse(localStorage.getItem('blocks'));
+        const index = local.findIndex((element) => element.id === this.id);
+
+        local.splice(index, 1);
+        localStorage.setItem('blocks', JSON.stringify(local));
+
         this.block.removeEventListener('input', this.renderTip);
         this.block.removeEventListener('input', this.saveData);
         this.block.removeEventListener('mouseover', this.renderPanel);
-        this.removeBlockFormBrowser();
         this.block.remove();
     }
 
