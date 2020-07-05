@@ -1,9 +1,10 @@
 class Block {
-    constructor(id, type, content, renderPanel) {
+    constructor(id, type, content, renderPanel, add) {
         this.id = id;
         this.type = type;
         this.content = content;
         this.renderPanel = renderPanel;
+        this.add = add;
     }
 
     createBlock(currentBlock) {
@@ -24,7 +25,7 @@ class Block {
             if (this.newBlock.textContent.length === 0) {
                 if (this.type === 'heading') {
                     this.newBlock.classList.add('main__title_tips_on');
-                } else {
+                } else if (this.type === 'paragraph'){
                     this.newBlock.classList.add('main__text_tips_on');
                 }
             }
@@ -59,14 +60,14 @@ class Block {
 
     renderTip(evt) {
         if (this.type === 'heading') {
-            if (this.contentLength === 0) {
+            if (evt.target.textContent.length === 0) {
                 evt.target.classList.add('main__title_tips_on');
             } else {
                 evt.target.style.border = '0';
                 evt.target.classList.remove('main__title_tips_on');
             }
-        } else {
-            if (this.contentLength === 0) {
+        } else  if (this.type === 'paragraph') {
+            if (evt.target.textContent.length === 0) {
                 evt.target.classList.add('main__text_tips_on');
             } else {
                 evt.target.style.border = '0';
@@ -99,6 +100,13 @@ class Block {
         this.block.removeEventListener('input', this.saveData);
         this.block.removeEventListener('mouseover', this.renderPanel);
         this.block.remove();
+
+        if (local.length === 0) {
+            const { element, block } = this.add.call(null, 'heading');
+            document.querySelector('.main').appendChild(block);
+            local.push(element);
+            localStorage.setItem('blocks', JSON.stringify(local));
+        }
     }
 
     setEventListeners(block) {

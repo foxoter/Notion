@@ -15,9 +15,10 @@
     }
 
     function createElement(id, type, content, renderPanel, currentBlock) {
-        const element = new Block(id, type, content, renderPanel);
+        const newBlock = new Block(id, type, content, renderPanel, add);
+        const createdBlock = newBlock.createBlock(currentBlock);
 
-        return element.createBlock(currentBlock);
+        return { newBlock, createdBlock };
     }
 
     function renderPanel(evt) {
@@ -48,13 +49,25 @@
     }
 
     function add(type) {
-        const newBlock = createElement(generateId(), type, '', renderPanel, this.currentBlock);
-        newBlock.focus();
-        if (newBlock.classList.contains('main__title')) {
-            newBlock.classList.add('main__title_tips_on');
+        let element;
+        let block;
+
+        if (this !== null) {
+            const { newBlock, createdBlock } = createElement(generateId(), type, '', renderPanel, this.currentBlock);
+            element = newBlock;
+            block = createdBlock;
         } else {
-            newBlock.classList.add('main__text_tips_on');
+            const { newBlock, createdBlock } = createElement(generateId(), type, '', renderPanel, null);
+            element = newBlock;
+            block = createdBlock;
         }
+
+        block.focus();
+
+        const classL = block.classList[0];
+        block.classList.add(`${classL}_tips_on`);
+
+        return { element, block };
     }
 
     function remove() {
